@@ -1,0 +1,7 @@
+name "dev-machine"
+maintainer "Peter Frank"
+maintainer_email "mdm23@gmx.de"
+license "UNLICENSED"
+description "Dev machine cookbook"
+long_description "Chef cookbook for the provisioning of my development machines"
+version "0.1.0"
