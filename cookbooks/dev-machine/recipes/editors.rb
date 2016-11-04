@@ -18,8 +18,12 @@ execute "nvim_as_default" do
     "update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60"
 end
 
-remote_directory `echo -n ~#{ENV["SUDO_USER"]}` + "/config/nvim" do
+remote_directory `echo -n ~#{ENV["SUDO_USER"]}` + "/.config/nvim" do
   source "nvim"
   owner ENV["SUDO_UID"].to_i
   group ENV["SUDO_GID"].to_i
+end
+
+execute "update_vim_plug" do
+  command "vim \"+PlugInstall\" \"+qall\""
 end
