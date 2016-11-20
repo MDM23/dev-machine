@@ -12,10 +12,10 @@ user ENV["SUDO_USER"] do
   shell "/usr/bin/zsh"
 end
 
-template ENV["HOME"] + "/.zshrc" do
+template `echo -n ~#{ENV["SUDO_USER"]}` + "/.zshrc" do
   source "zshrc.erb"
 end
 
-template ENV["HOME"] + "/.profile" do
+template `echo -n ~#{ENV["SUDO_USER"]}` + "/.profile" do
   source "profile.erb"
 end

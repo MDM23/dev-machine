@@ -1,3 +1,3 @@
 package ["golang"]
 
-directory ENV["HOME"] + "/workspace/src"
+directory `echo -n ~#{ENV["SUDO_USER"]}` + "/workspace/src"
