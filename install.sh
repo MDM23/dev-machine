@@ -12,8 +12,5 @@ fi
 # Get the absolute path to the directory of this script
 dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
-# Update the cookbook
-git --git-dir="$dir/.git" pull --rebase --autostash
-
 # Execute chef-solo
 chef-solo -c "$dir/solo.rb"

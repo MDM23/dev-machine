@@ -1,5 +1,10 @@
-# Install visual studio code
-# package []
+apt_repository "vscode" do
+  uri "https://tagplus5.github.io/vscode-ppa/ubuntu"
+  key "vscode/gpg.key"
+  distribution "./"
+end
+
+package ["code"]
 
 apt_repository "neovim" do
   uri "ppa:neovim-ppa/unstable"
