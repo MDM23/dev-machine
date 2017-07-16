@@ -34,11 +34,25 @@ set noswapfile
 set nobackup
 set nowb
 set nowrap
+set nofoldenable
 set splitbelow
 set splitright
 set colorcolumn=80
 set cursorline
 set encoding=utf-8 nobomb
+
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+
+set t_Co=256
+set background=dark
+colorscheme molokai
+
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 
 syntax on
 
@@ -50,6 +64,9 @@ if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
   set undodir=~/.vim/backups
   set undofile
 endif
+
+" Remove trailing blanks before saving
+autocmd FileType php,js,ts,md,txt,json,css,scss,html,jade autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " ################################ INDENTATION #################################
 
@@ -83,3 +100,14 @@ set incsearch           " Find the next match as we type the search
 set hlsearch            " Highlight searches by default
 set ignorecase          " Ignore case when searching...
 set smartcase           " ...unless we type a capital
+
+" ################################# NERDTree ###################################
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" ################################# Airline ####################################
+
+let g:airline_powerline_fonts=1
