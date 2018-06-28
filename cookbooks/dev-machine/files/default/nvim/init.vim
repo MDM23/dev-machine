@@ -2,18 +2,15 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-scripts/ScrollColors'
-Plug 'gerw/vim-HiLinkTrace'
+"Plug 'gerw/vim-HiLinkTrace'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdcommenter'
-Plug 'digitaltoad/vim-pug'
-Plug 'kern/vim-es7'
 Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-fugitive'
 Plug 'rking/ag.vim'
 call plug#end()
 
@@ -40,6 +37,8 @@ set splitright
 set colorcolumn=80
 set cursorline
 set encoding=utf-8 nobomb
+set tw=0
+set mouse=a
 
 set ignorecase
 set smartcase
@@ -51,8 +50,7 @@ set t_Co=256
 set background=dark
 colorscheme molokai
 
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
 
 syntax on
 
@@ -66,7 +64,8 @@ if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
 endif
 
 " Remove trailing blanks before saving
-autocmd FileType php,js,ts,md,txt,json,css,scss,html,jade autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType php,js,ts,md,txt,json,css,scss,html,jade
+autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " ################################ INDENTATION #################################
 
@@ -101,13 +100,25 @@ set hlsearch            " Highlight searches by default
 set ignorecase          " Ignore case when searching...
 set smartcase           " ...unless we type a capital
 
+" ################################ NAVIGATION ##################################
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 " ################################# NERDTree ###################################
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | vnew | endif
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " ################################# Airline ####################################
 
 let g:airline_powerline_fonts=1
+
+" ################################## ctrlp #####################################
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_working_path_mode = ''
